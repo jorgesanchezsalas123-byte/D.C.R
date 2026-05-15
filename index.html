@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>D.C.R Music</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #06090f;
+      --bg2: #0d1526;
+      --card: #111d35;
+      --cyan: #4ab3f4;
+      --cyan2: #1a8fd1;
+      --blanco: #f1f5f9;
+      --gris: #64748b;
+      --gris2: #94a3b8;
+      --acento: #1e3a5f;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--blanco);
+      font-family: 'DM Sans', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* Fondo con puntos */
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0;
+      background-image: radial-gradient(rgba(74,179,244,.06) 1px, transparent 1px);
+      background-size: 32px 32px;
+      pointer-events: none;
+    }
+
+    /* Glows */
+    .glow1 {
+      position: fixed; z-index: 0; pointer-events: none;
+      width: 700px; height: 700px;
+      background: radial-gradient(circle, rgba(74,179,244,.12) 0%, transparent 70%);
+      top: -200px; left: -200px;
+    }
+    .glow2 {
+      position: fixed; z-index: 0; pointer-events: none;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(26,143,209,.1) 0%, transparent 70%);
+      bottom: -150px; right: -150px;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 40px;
+      background: rgba(6,9,15,.9);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(74,179,244,.1);
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 10px;
+      font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 800;
+      color: var(--blanco); text-decoration: none;
+    }
+    .nav-logo .icono {
+      width: 36px; height: 36px; border-radius: 10px;
+      background: linear-gradient(135deg, var(--cyan2), var(--cyan));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px;
+    }
+    .nav-links { display: flex; gap: 32px; }
+    .nav-links a {
+      color: var(--gris2); text-decoration: none; font-size: 14px;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--blanco); }
+    .nav-download {
+      background: linear-gradient(135deg, var(--cyan2), var(--cyan));
+      color: #fff; font-family: 'Syne', sans-serif; font-weight: 700;
+      padding: 10px 22px; border-radius: 10px;
+      text-decoration: none; font-size: 14px;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .nav-download:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(74,179,244,.3); }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative; z-index: 1;
+      min-height: 100vh;
+      display: flex; align-items: center;
+      padding: 120px 40px 80px;
+      max-width: 1200px; margin: 0 auto;
+      gap: 60px;
+    }
+    .hero-left { flex: 1; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(74,179,244,.1); border: 1px solid rgba(74,179,244,.2);
+      border-radius: 100px; padding: 6px 16px; margin-bottom: 28px;
+      font-size: 12px; color: var(--cyan); font-weight: 500;
+      letter-spacing: .5px; text-transform: uppercase;
+      animation: fadeUp .5s ease both;
+    }
+    .hero-badge::before { content: '●'; font-size: 8px; }
+    h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(44px, 6vw, 72px);
+      font-weight: 800; line-height: 1.05;
+      letter-spacing: -2px; margin-bottom: 20px;
+      animation: fadeUp .5s .1s ease both;
+    }
+    h1 em { font-style: normal; color: var(--cyan); }
+    .hero-desc {
+      font-size: 18px; color: var(--gris2); line-height: 1.7;
+      font-weight: 300; margin-bottom: 40px;
+      animation: fadeUp .5s .2s ease both;
+    }
+    .hero-btns {
+      display: flex; gap: 14px; flex-wrap: wrap;
+      animation: fadeUp .5s .3s ease both;
+    }
+
+    /* ─── BOTÓN DE DESCARGA - CAMBIA EL href AQUÍ ABAJO ─── */
+    .btn-download {
+      /* ↓↓↓ CAMBIA ESTE ENLACE CUANDO TENGAS UNA NUEVA VERSIÓN ↓↓↓ */
+      /* href="TU_ENLACE_DE_DESCARGA_AQUÍ" */
+      background: linear-gradient(135deg, var(--cyan2), var(--cyan));
+      color: #fff; font-family: 'Syne', sans-serif; font-weight: 800;
+      padding: 16px 32px; border-radius: 14px;
+      text-decoration: none; font-size: 16px;
+      display: inline-flex; align-items: center; gap: 10px;
+      transition: transform .2s, box-shadow .2s;
+      box-shadow: 0 4px 20px rgba(74,179,244,.25);
+    }
+    .btn-download:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(74,179,244,.4); }
+    .btn-info {
+      background: transparent; color: var(--blanco);
+      border: 1px solid rgba(255,255,255,.15);
+      font-family: 'Syne', sans-serif; font-weight: 600;
+      padding: 16px 32px; border-radius: 14px;
+      text-decoration: none; font-size: 16px;
+      display: inline-flex; align-items: center; gap: 10px;
+      transition: border-color .2s, background .2s;
+    }
+    .btn-info:hover { border-color: var(--cyan); background: rgba(74,179,244,.05); }
+
+    .hero-stats {
+      display: flex; gap: 32px; margin-top: 48px;
+      animation: fadeUp .5s .4s ease both;
+    }
+    .stat { border-left: 2px solid var(--cyan); padding-left: 14px; }
+    .stat-num { font-family: 'Syne', sans-serif; font-size: 24px; font-weight: 800; color: var(--cyan); }
+    .stat-label { font-size: 12px; color: var(--gris); margin-top: 2px; }
+
+    /* App mockup */
+    .hero-right {
+      flex: 0 0 320px;
+      display: flex; justify-content: center;
+      animation: fadeUp .5s .2s ease both;
+    }
+    .mockup {
+      width: 260px; height: 520px;
+      background: var(--card);
+      border-radius: 36px; overflow: hidden;
+      border: 1px solid rgba(74,179,244,.15);
+      box-shadow: 0 40px 80px rgba(0,0,0,.6), 0 0 0 1px rgba(255,255,255,.05);
+      position: relative;
+    }
+    .mockup-header {
+      background: linear-gradient(180deg, #0d1f3e 0%, var(--card) 100%);
+      padding: 28px 20px 20px; text-align: center;
+    }
+    .mockup-nota { font-size: 56px; display: block; margin-bottom: 8px; }
+    .mockup-nombre { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 800; }
+    .mockup-sub { color: var(--gris); font-size: 12px; margin-top: 4px; }
+    .mockup-now {
+      margin: 16px; background: rgba(74,179,244,.08);
+      border: 1px solid rgba(74,179,244,.15); border-radius: 16px; padding: 14px;
+    }
+    .mockup-now-label { font-size: 10px; color: var(--cyan); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+    .mockup-track { display: flex; align-items: center; gap: 10px; }
+    .mockup-track-img {
+      width: 40px; height: 40px; border-radius: 8px;
+      background: linear-gradient(135deg, var(--cyan2), #0a5a8a);
+      display: flex; align-items: center; justify-content: center; font-size: 18px;
+    }
+    .mockup-track-info { flex: 1; }
+    .mockup-track-name { font-size: 13px; font-weight: 600; }
+    .mockup-track-artist { font-size: 11px; color: var(--gris); }
+    .mockup-progress { margin: 12px 16px 0; }
+    .mockup-bar { height: 3px; background: rgba(255,255,255,.1); border-radius: 2px; }
+    .mockup-fill { height: 3px; background: var(--cyan); border-radius: 2px; width: 45%; }
+    .mockup-controls {
+      display: flex; align-items: center; justify-content: center;
+      gap: 24px; padding: 16px;
+    }
+    .ctrl { font-size: 20px; cursor: pointer; opacity: .7; }
+    .ctrl-play {
+      width: 48px; height: 48px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--cyan2), var(--cyan));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px; opacity: 1;
+    }
+    .mockup-list { padding: 0 16px; }
+    .mockup-list-title { font-size: 11px; color: var(--gris); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
+    .mockup-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,.05);
+    }
+    .mockup-item-dot {
+      width: 32px; height: 32px; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center; font-size: 14px;
+    }
+    .mockup-item-info { flex: 1; }
+    .mockup-item-name { font-size: 12px; font-weight: 500; }
+    .mockup-item-dur { font-size: 10px; color: var(--gris); }
+
+    /* ── CARACTERÍSTICAS ── */
+    .seccion {
+      position: relative; z-index: 1;
+      max-width: 1200px; margin: 0 auto;
+      padding: 100px 40px;
+    }
+    .seccion-badge {
+      display: inline-block;
+      background: rgba(74,179,244,.1); border: 1px solid rgba(74,179,244,.2);
+      border-radius: 100px; padding: 5px 14px; margin-bottom: 16px;
+      font-size: 12px; color: var(--cyan); font-weight: 500;
+      text-transform: uppercase; letter-spacing: .5px;
+    }
+    h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(32px, 4vw, 48px);
+      font-weight: 800; letter-spacing: -1px; margin-bottom: 60px;
+    }
+    h2 span { color: var(--cyan); }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    .feature-card {
+      background: var(--card);
+      border: 1px solid rgba(74,179,244,.08);
+      border-radius: 20px; padding: 28px;
+      transition: border-color .3s, transform .3s;
+    }
+    .feature-card:hover { border-color: rgba(74,179,244,.25); transform: translateY(-4px); }
+    .feature-icono {
+      font-size: 36px; margin-bottom: 16px; display: block;
+    }
+    .feature-titulo {
+      font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 700;
+      margin-bottom: 10px;
+    }
+    .feature-desc { color: var(--gris2); font-size: 14px; line-height: 1.6; }
+
+    /* ── PRECIO ── */
+    .precio-wrap { display: flex; justify-content: center; }
+    .precio-card {
+      background: var(--card);
+      border: 1px solid rgba(74,179,244,.2);
+      border-radius: 28px; padding: 48px;
+      text-align: center; max-width: 480px; width: 100%;
+      position: relative; overflow: hidden;
+    }
+    .precio-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--cyan2), var(--cyan));
+    }
+    .precio-badge {
+      display: inline-block;
+      background: rgba(74,179,244,.1); border: 1px solid rgba(74,179,244,.2);
+      border-radius: 100px; padding: 5px 14px; margin-bottom: 24px;
+      font-size: 12px; color: var(--cyan); font-weight: 600;
+      text-transform: uppercase; letter-spacing: 1px;
+    }
+    .precio-num {
+      font-family: 'Syne', sans-serif; font-size: 56px; font-weight: 800;
+      color: var(--cyan); line-height: 1;
+    }
+    .precio-moneda { font-size: 28px; vertical-align: top; margin-top: 8px; display: inline-block; }
+    .precio-tipo { color: var(--gris2); font-size: 15px; margin: 8px 0 32px; }
+    .precio-lista { text-align: left; margin-bottom: 36px; display: flex; flex-direction: column; gap: 14px; }
+    .precio-item { display: flex; align-items: center; gap: 12px; font-size: 15px; }
+    .precio-check { color: var(--cyan); font-size: 18px; }
+    .btn-comprar {
+      display: block; width: 100%;
+      background: linear-gradient(135deg, var(--cyan2), var(--cyan));
+      color: #fff; font-family: 'Syne', sans-serif; font-weight: 800;
+      padding: 18px; border-radius: 14px;
+      text-decoration: none; font-size: 17px;
+      transition: transform .2s, box-shadow .2s;
+      box-shadow: 0 4px 20px rgba(74,179,244,.25);
+    }
+    .btn-comprar:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(74,179,244,.4); }
+    .precio-nota { color: var(--gris); font-size: 13px; margin-top: 16px; }
+
+    /* ── CONTACTO ── */
+    .contacto-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+    }
+    .contacto-card {
+      background: var(--card);
+      border: 1px solid rgba(74,179,244,.08);
+      border-radius: 20px; padding: 28px;
+      display: flex; align-items: center; gap: 16px;
+      text-decoration: none; color: var(--blanco);
+      transition: border-color .3s, transform .3s;
+    }
+    .contacto-card:hover { border-color: rgba(74,179,244,.3); transform: translateY(-3px); }
+    .contacto-icono {
+      width: 52px; height: 52px; border-radius: 14px;
+      display: flex; align-items: center; justify-content: center; font-size: 26px;
+      flex-shrink: 0;
+    }
+    .contacto-icono.wa { background: rgba(37,211,102,.15); }
+    .contacto-icono.mail { background: rgba(74,179,244,.15); }
+    .contacto-titulo { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 16px; }
+    .contacto-valor { color: var(--gris2); font-size: 14px; margin-top: 4px; }
+
+    /* ── FOOTER ── */
+    footer {
+      position: relative; z-index: 1;
+      border-top: 1px solid rgba(255,255,255,.06);
+      padding: 32px 40px;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 16px;
+    }
+    .footer-logo {
+      font-family: 'Syne', sans-serif; font-weight: 800;
+      font-size: 18px; display: flex; align-items: center; gap: 8px;
+    }
+    .footer-copy { color: var(--gris); font-size: 13px; }
+
+    /* ── ANIMACIONES ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      nav { padding: 16px 20px; }
+      .nav-links { display: none; }
+      .hero { flex-direction: column; padding: 100px 20px 60px; text-align: center; }
+      .hero-stats { justify-content: center; }
+      .hero-right { display: none; }
+      .seccion { padding: 70px 20px; }
+      footer { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="glow1"></div>
+<div class="glow2"></div>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">
+    <div class="icono">🎵</div>
+    D.C.R
+  </a>
+  <div class="nav-links">
+    <a href="#caracteristicas">Características</a>
+    <a href="#precio">Precio</a>
+    <a href="#contacto">Contacto</a>
+  </div>
+  <!-- ↓↓↓ CAMBIA ESTE ENLACE CUANDO TENGAS UNA NUEVA VERSIÓN ↓↓↓ -->
+  <a class="nav-download" href="TU_ENLACE_DE_DESCARGA_AQUÍ" download>
+    ↓ Descargar
+  </a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-badge">Nueva versión disponible</div>
+    <h1>Tu música,<br><em>siempre contigo</em></h1>
+    <p class="hero-desc">
+      D.C.R es la app de música que te da control total sobre tu experiencia. Escucha, organiza y disfruta tu música favorita desde cualquier lugar.
+    </p>
+    <div class="hero-btns">
+      <!-- ↓↓↓ CAMBIA ESTE ENLACE CUANDO TENGAS UNA NUEVA VERSIÓN ↓↓↓ -->
+      <a class="btn-download" href="TU_ENLACE_DE_DESCARGA_AQUÍ" download>
+        ↓ Descargar para Android
+      </a>
+      <a class="btn-info" href="#caracteristicas">Ver características</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-num">100%</div>
+        <div class="stat-label">Gratuito</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">Sin ads</div>
+        <div class="stat-label">Sin publicidad</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">Offline</div>
+        <div class="stat-label">Sin internet</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mockup de app de música -->
+  <div class="hero-right">
+    <div class="mockup">
+      <div class="mockup-header">
+        <span class="mockup-nota">🎵</span>
+        <div class="mockup-nombre">D.C.R Music</div>
+        <div class="mockup-sub">Tu música favorita</div>
+      </div>
+      <div class="mockup-now">
+        <div class="mockup-now-label">Reproduciendo ahora</div>
+        <div class="mockup-track">
+          <div class="mockup-track-img">🎸</div>
+          <div class="mockup-track-info">
+            <div class="mockup-track-name">Mi canción favorita</div>
+            <div class="mockup-track-artist">Artista • Álbum</div>
+          </div>
+          <span style="color:#4ab3f4">♡</span>
+        </div>
+        <div class="mockup-progress">
+          <div class="mockup-bar"><div class="mockup-fill"></div></div>
+        </div>
+        <div class="mockup-controls">
+          <span class="ctrl">⏮</span>
+          <div class="ctrl-play">▶</div>
+          <span class="ctrl">⏭</span>
+        </div>
+      </div>
+      <div class="mockup-list">
+        <div class="mockup-list-title">Lista de reproducción</div>
+        <div class="mockup-item">
+          <div class="mockup-item-dot" style="background:rgba(74,179,244,.15)">🎵</div>
+          <div class="mockup-item-info">
+            <div class="mockup-item-name">Track 1</div>
+            <div class="mockup-item-dur">3:24</div>
+          </div>
+        </div>
+        <div class="mockup-item">
+          <div class="mockup-item-dot" style="background:rgba(74,179,244,.1)">🎶</div>
+          <div class="mockup-item-info">
+            <div class="mockup-item-name">Track 2</div>
+            <div class="mockup-item-dur">4:12</div>
+          </div>
+        </div>
+        <div class="mockup-item">
+          <div class="mockup-item-dot" style="background:rgba(74,179,244,.08)">🎸</div>
+          <div class="mockup-item-info">
+            <div class="mockup-item-name">Track 3</div>
+            <div class="mockup-item-dur">2:58</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CARACTERÍSTICAS -->
+<section class="seccion" id="caracteristicas">
+  <div class="seccion-badge">Características</div>
+  <h2>Todo lo que necesitas<br><span>en una app</span></h2>
+  <div class="features-grid">
+    <div class="feature-card">
+      <span class="feature-icono">🎵</span>
+      <div class="feature-titulo">Reproducción sin límites</div>
+      <p class="feature-desc">Escucha toda tu música sin restricciones. Sin límites de tiempo ni de canciones.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icono">📵</span>
+      <div class="feature-titulo">Modo sin conexión</div>
+      <p class="feature-desc">Descarga tus canciones favoritas y escúchalas sin necesitar internet.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icono">📋</span>
+      <div class="feature-titulo">Listas de reproducción</div>
+      <p class="feature-desc">Organiza tu música en listas personalizadas según tu estado de ánimo.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icono">🔔</span>
+      <div class="feature-titulo">Notificaciones</div>
+      <p class="feature-desc">Recibe alertas de nuevas canciones y actualizaciones de tus artistas favoritos.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icono">🔒</span>
+      <div class="feature-titulo">Tu cuenta segura</div>
+      <p class="feature-desc">Acceso protegido con correo y contraseña. Tu cuenta siempre segura.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icono">⚡</span>
+      <div class="feature-titulo">Rápida y ligera</div>
+      <p class="feature-desc">Diseñada para ser fluida y rápida en cualquier dispositivo Android.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PRECIO -->
+<section class="seccion" id="precio">
+  <div class="seccion-badge">Precio</div>
+  <h2>Un solo pago,<br><span>para siempre</span></h2>
+  <div class="precio-wrap">
+    <div class="precio-card">
+      <div class="precio-badge">Acceso completo</div>
+      <div class="precio-num">
+        <span class="precio-moneda">$</span>2.000.000
+      </div>
+      <p class="precio-tipo">Pago único · Sin mensualidades</p>
+      <div class="precio-lista">
+        <div class="precio-item"><span class="precio-check">✓</span> Acceso de por vida</div>
+        <div class="precio-item"><span class="precio-check">✓</span> Todas las funciones incluidas</div>
+        <div class="precio-item"><span class="precio-check">✓</span> Actualizaciones gratuitas</div>
+        <div class="precio-item"><span class="precio-check">✓</span> Soporte por WhatsApp</div>
+        <div class="precio-item"><span class="precio-check">✓</span> Sin publicidad</div>
+        <div class="precio-item"><span class="precio-check">✓</span> Funciona sin internet</div>
+      </div>
+      <!-- ↓↓↓ CAMBIA ESTE ENLACE AL DE WHATSAPP CON TU NÚMERO ↓↓↓ -->
+      <a class="btn-comprar" href="https://wa.me/573122345468?text=Hola,%20quiero%20adquirir%20D.C.R%20Music" target="_blank">
+        Adquirir ahora por WhatsApp
+      </a>
+      <p class="precio-nota">Escríbenos y te enviamos el enlace de descarga</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACTO -->
+<section class="seccion" id="contacto">
+  <div class="seccion-badge">Contacto</div>
+  <h2>¿Tienes alguna<br><span>pregunta?</span></h2>
+  <div class="contacto-grid">
+    <a class="contacto-card" href="https://wa.me/573122345468" target="_blank">
+      <div class="contacto-icono wa">💬</div>
+      <div>
+        <div class="contacto-titulo">WhatsApp</div>
+        <div class="contacto-valor">+57 312 234 5468</div>
+      </div>
+    </a>
+    <a class="contacto-card" href="mailto:jorgesanchezsalas123@gmail.com">
+      <div class="contacto-icono mail">✉️</div>
+      <div>
+        <div class="contacto-titulo">Correo electrónico</div>
+        <div class="contacto-valor">jorgesanchezsalas123@gmail.com</div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">🎵 D.C.R Music</div>
+  <div class="footer-copy">© 2025 D.C.R Music · Todos los derechos reservados</div>
+</footer>
+
+</body>
+</html>
